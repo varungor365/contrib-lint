@@ -97,7 +97,12 @@ def scan(root: Path, config: dict | None = None) -> list[Finding]:
 
     pr_template = root / ".github" / "pull_request_template.md"
     legacy_template = root / ".github" / "PULL_REQUEST_TEMPLATE.md"
-    if not pr_template.is_file() and not legacy_template.is_file():
+    template_directory = root / ".github" / "PULL_REQUEST_TEMPLATE"
+    has_directory_template = template_directory.is_dir() and any(
+        path.is_file() and path.suffix.lower() == ".md"
+        for path in template_directory.iterdir()
+    )
+    if not pr_template.is_file() and not legacy_template.is_file() and not has_directory_template:
         findings.append(Finding(
             "MISSING_PR_TEMPLATE",
             "info",
