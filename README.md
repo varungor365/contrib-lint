@@ -40,7 +40,7 @@ To use it in CI:
 | Required repository files | Warns when `README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `LICENSE`, or `.gitignore` is missing. |
 | README onboarding | Warns when the README is very short or lacks a recognizable quick-start section. |
 | Contribution guidance | Warns when `CONTRIBUTING.md` does not mention contributions, tests, or pull requests. |
-| Pull-request template | Reports an informational finding when no template exists under `.github/`. |
+| Pull-request template | Reports an informational finding when no template exists under `.github/`, including the directory form `.github/PULL_REQUEST_TEMPLATE/*.md`. |
 | Custom policy | Accepts a local JSON file for project-specific required files and contribution terms. |
 
 ## Example

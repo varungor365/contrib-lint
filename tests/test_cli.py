@@ -37,3 +37,13 @@ def test_short_readme_and_missing_quickstart_are_actionable(tmp_path: Path):
     findings = scan(tmp_path)
     codes = {item.code for item in findings}
     assert {"SHORT_README", "MISSING_QUICKSTART"} <= codes
+
+
+def test_directory_pull_request_template_is_recognized(tmp_path: Path):
+    make_repo(tmp_path)
+    template = tmp_path / ".github" / "pull_request_template.md"
+    template.unlink()
+    directory = tmp_path / ".github" / "PULL_REQUEST_TEMPLATE"
+    directory.mkdir()
+    (directory / "bug_report.md").write_text("- [ ] Reproduction included\n", encoding="utf-8")
+    assert not any(item.code == "MISSING_PR_TEMPLATE" for item in scan(tmp_path))
